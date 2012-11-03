@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Projet de JS, yey!</title>
+		<style type="text/css">
+			body {
+				font-family: Verdana, Geneva, sans-serif;
+				font-size: 12px;
+			}
+			#bloc-fonctionnaire, #bloc-cadre, #bloc-etudiant, #bloc-patron, #bloc-informatique {
+				display: none;
+			}
+			label {
+				display: inline-block;
+			}
+			input[type=radio] + label:not([for=autreProfession]):not([for=patron]) {
+				width: 125px;
+			}
+			input[type=checkbox] + label:not([for=autreInteret]) {
+				width: 75px;
+			}
+		</style>
+		<script type="text/Javascript" src="project-js.js"></script>
+	</head>
+	
+	<!-- Au chargement de la page, lance les fonctions autofocus() et createSelectOptions() -->
+	<body onload="autofocus();createSelectOptions();">
+		<form name="information">
+		
+			<label for="surname">Nom :</label>
+			<input type="text" name="surname" id="surname">
+			<label for="name">Prénom :</label>
+			<input type="text" name="name" id="name">
+			<br>
+			<label>Date de naissance :</label>
+			<select name="day"></select>
+			<select name="month"></select>
+			<select name="year"></select>
+			<input type="button" name="verifDate" value="Vérifiez" onclick="checkBirthday()">
+			<br>
+			<br>
+			
+			<!-- BLOC TELEPHONE -->
+			<fieldset>
+				<legend>Numéro de téléphone</legend>
+				<label for="home">Domicile :</label>
+				<input type="text" name="home" id="home" onblur="checkPhone()">
+				<br>
+				<label for="mobile">Portable :</label>
+				<input type="text" name="mobile" id="mobile" value="06." onblur="checkPhone()">
+				<br>
+				<label for="pro">Professionnel :</label>
+				<input type="text" name="pro" id="pro" onblur="checkPhone()">
+			</fieldset>
+			<br>
+			
+			<!-- BLOC COORDONNEES -->
+			<fieldset>
+				<legend>Coordonnées de contact</legend>
+				<label for="street">Adresse :</label>
+				<input type="text" name="street" id="street">
+				<br>
+				<label for="postalcode">Code postal :</label>
+				<input type="text" name="postalcode" id="postalcode" onblur="autocompleteCity()">
+				<label for="city">Ville :</label>
+				<input type="text" name="city" id="city">
+				<br>
+				<label for="email">E-mail :</label>
+				<input type="text" name="email" id="email" value="@">
+			</fieldset>
+			<br>
+			
+			<!-- BLOC PROFESSION -->
+			<fieldset>
+				<legend>Profession</legend>
+				<input type="radio" name="profession" id="cadre" value="cadre" onchange="optionsProfession()">
+				<label for="cadre">Cadre</label>
+				<input type="radio" name="profession" id="salarie" value="salarie" onchange="optionsProfession()">
+				<label for="salarie">Salarié</label>
+				<br>
+				<input type="radio" name="profession" id="fonctionnaire" value="fonctionnaire" onchange="optionsProfession()">
+				<label for="fonctionnaire">Fonctionnaire</label>
+				<input type="radio" name="profession" id="patron" value="patron" onchange="optionsProfession()">
+				<label for="patron">Patron</label>
+				<select name="effectif" id="bloc-patron">
+					<option value="1">1..10</option>
+					<option value="2">11..20</option>
+					<option value="3">21..30</option>
+				</select>
+				<br>
+				<input type="radio" name="profession" id="liberal" value="liberal" onchange="optionsProfession()">
+				<label for="liberal">Profession libérale</label>
+				<input type="radio" name="profession" id="etudiant" value="etudiant" onchange="optionsProfession()">
+				<label for="etudiant">Etudiant, lycéen</label>
+				<br>
+				<input type="radio" name="profession" id="artisan" value="artisan" onchange="optionsProfession()">
+				<label for="artisan">Artisan</label>
+				<input type="radio" name="profession" id="autreProfession" value="autreProfession" onchange="optionsProfession()">
+				<label for="autreProfession">Autre : précisez :</label>
+				<input type="text" name="precisionProfession" value="">
+				<br>
+				<div id="bloc-fonctionnaire">
+					<label for="entiteAdmin">Entité administrative :</label>
+					<input type="text" name="entiteAdmin" id="entiteAdmin" value="">
+				</div>
+				<div id="bloc-cadre">
+					<label for="entreprise">Entreprise :</label>
+					<input type="text" name="entreprise" id="entreprise" value="">
+				</div>
+				<div id="bloc-etudiant">
+					<label for="ecole">Ecole/Université :</label>
+					<input type="text" name="ecole" id="ecole" value="">
+				</div>
+			</fieldset>
+			<br>
+			
+			<!-- BLOC CENTRES D'INTERETS -->
+			<fieldset>
+				<legend>Centres d'intérêt</legend>
+				<input type="checkbox" name="sport" id="sport" value="sport">
+				<label for="sport">Sport</label>
+				<input type="checkbox" name="informatique" id="informatique" value="informatique" onchange="optionsInterets(this)">
+				<label for="informatique">Informatique</label>
+				<br>
+				<input type="checkbox" name="cinema" id="cinema" value="cinema">
+				<label for="cinema">Cinéma</label>
+				<input type="checkbox" name="nature" id="nature" value="nature">
+				<label for="nature">Nature</label>
+				<br>
+				<input type="checkbox" name="jeux" id="jeux" value="jeux">
+				<label for="jeux">Jeux</label>
+				<input type="checkbox" name="sorties" id="sorties" value="sorties">
+				<label for="sorties">Sorties</label>
+				<br>
+				<input type="checkbox" name="lecture" id="lecture" value="lecture">
+				<label for="lecture">Lecture</label>
+				<input type="checkbox" name="autreInteret" id="autreInteret" value="autreInteret">
+				<label for="autreInteret">Autre : précisez :</label>
+				<input type="text" name="precisionInteret" value="">
+				<br>
+				<div id="bloc-informatique">
+					<input type="checkbox" name="logiciels" id="logiciels" value="logiciels">
+					<label for="logiciels">Logiciels</label>
+					<input type="checkbox" name="codage" id="codage" value="codage">
+					<label for="codage">Codage</label>
+					<br>
+					<input type="checkbox" name="jeux" id="jeux" value="jeux" onchange="optionsInterets(this)">
+					<label for="jeux">Jeux</label>
+					<input type="checkbox" name="hardware" id="hardware" value="hardware">
+					<label for="hardware">Hardware</label>
+					<br>
+				</div>
+				<label for="niveau">Niveau de jeu :</label>
+				<select name="niveau" id="niveau" onchange="optionsInterets(this)">
+					<option value="1">Faible</option>
+					<option value="2">Moyen</option>
+					<option value="3">Expert</option>
+				</select>
+			</fieldset>
+			<br>
+			
+			<!-- BLOC MOTIVATION -->
+			<div id="bloc-motivation">
+				<label for="motivation">Motivations :</label>
+				<br>
+				<textarea name="motivation" id="motivation"></textarea>
+				<br>
+			</div>
+			
+			<br>
+			<input type="reset" name="reset" value="Effacez tout !">
+			
+		</form>
+	</body>
+	
+</html>
