@@ -105,32 +105,33 @@ function autocompleteCity() {
 	}
 }
 
+// Affiche ou masque des champs en fonction de la sélection "Profession"
+function optionsProfession() {
+	// Récupère le champ "Profession" (qui rassemble tous les boutons radio)
+	var profession = document.information.profession;
+	// Déclare la liste des valeurs concernées
+	var sortList = ["fonctionnaire", "cadre", "patron", "etudiant"];
 
-function extraOptions(a) {
-	if (a.name == "profession") {
-		// Récupère le champ "Profession" (qui rassemble tous les boutons radio)
-		a = document.information.profession;
-		// Déclare la liste des valeurs concernées
-		var sortList = ["fonctionnaire", "cadre", "patron", "etudiant"];
-
-		// DEBUT de la boucle
-		// La fonction va passer en revue tous les éléments du champ "Profession"
-		for (i=0; i<a.length; i++) {
-			// Vérifie si la valeur fait partie des valeurs concernées
-			if (sortList.indexOf(a[i].value) != -1) {
-				// Si cochée, affiche son champ supplémentaire
-				if (a[i].checked) {
-					document.getElementById("bloc-" + a[i].value).style.display = "inline-block";
-				}
-				// Si non cochée, masque son champ supplémentaire
-				else {
-					document.getElementById("bloc-" + a[i].value).style.display = "none";
-				}
+	// DEBUT de la boucle
+	// La fonction va passer en revue tous les éléments du champ "Profession"
+	for (i=0; i<profession.length; i++) {
+		// Vérifie si la valeur fait partie des valeurs concernées
+		if (sortList.indexOf(profession[i].value) != -1) {
+			// Si cochée, affiche son champ supplémentaire
+			if (profession[i].checked) {
+				document.getElementById("bloc-" + profession[i].value).style.display = "inline-block";
+			}
+			// Si non cochée, masque son champ supplémentaire
+			else {
+				document.getElementById("bloc-" + profession[i].value).style.display = "none";
 			}
 		}
-		// FIN de la boucle
 	}
+	// FIN de la boucle
+}
 
+// Affiche ou masque des champs en fonction des sélections "Intérêts"
+function optionsInterests(a) {
 	// Si le champ concerné est "Informatique", applique ce qui suit
 	if (a == document.getElementById("informatique")) {
 		// Si "Informatique" coché, affiche les options supplémentaires
@@ -145,7 +146,7 @@ function extraOptions(a) {
 
 	// Si le champ concerné est "Jeux vidéos" et que la case est cochée, ouvre une nouvelle fenêtre
 	if (a == document.getElementById("jeuxpc") && a.checked) {
-		window.open("http://www.minecraft.net","popup","status=no, scrollbars=yes, menubar=yes, width=800, height=600");
+		window.open("http://www.minecraft.net","status=no, scrollbars=yes, menubar=yes, width=800, height=600");
 	}
 
 	// Si le champ concerné est "Niveau", applique ce qui suit

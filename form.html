@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<title>Projet de JS, yey!</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Projet de JS, yey!</title>
 		<style type="text/css">
 			body {
 				font-family: Verdana, Geneva, sans-serif;
@@ -28,14 +29,20 @@
 		<form name="information">
 		
 			<label for="surname">Nom :</label>
-			<input type="text" name="surname" id="surname">
+			<input type="text" name="surname" id="surname" onblur="isEmpty(this);" required>
 			<label for="name">Prénom :</label>
-			<input type="text" name="name" id="name">
+			<input type="text" name="name" id="name" onblur="isEmpty(this);" required>
 			<br>
 			<label>Date de naissance :</label>
-			<select name="day"></select>
-			<select name="month"></select>
-			<select name="year"></select>
+			<select name="day" onblur="isEmpty(this);" required>
+				<option value="">Jour</option>
+			</select>
+			<select name="month" onblur="isEmpty(this);" required>
+				<option value="">Mois</option>
+			</select>
+			<select name="year" onblur="isEmpty(this);" required>
+				<option value="">Année</option>
+			</select>
 			<input type="button" name="verifDate" value="Vérifiez" onclick="checkBirthday()">
 			<br>
 			<br>
@@ -43,14 +50,14 @@
 			<!-- BLOC TELEPHONE -->
 			<fieldset>
 				<legend>Numéro de téléphone</legend>
-				<label for="home">Domicile :</label>
-				<input type="text" name="home" id="home" onblur="checkPhone()">
+				<label for="phoneHome">Domicile :</label>
+				<input type="text" name="phoneHome" id="phoneHome" onBlur="checkPhone();isEmpty(this);" required>
 				<br>
-				<label for="mobile">Portable :</label>
-				<input type="text" name="mobile" id="mobile" value="06." onblur="checkPhone()">
+				<label for="phoneMobile">Portable :</label>
+				<input type="text" name="phoneMobile" id="phoneMobile" value="06." onBlur="checkPhone();isEmpty(this);" required>
 				<br>
-				<label for="pro">Professionnel :</label>
-				<input type="text" name="pro" id="pro" onblur="checkPhone()">
+				<label for="phonePro">Professionnel :</label>
+				<input type="text" name="phonePro" id="phonePro" onBlur="checkPhone();isEmpty(this);" required>
 			</fieldset>
 			<br>
 			
@@ -58,58 +65,59 @@
 			<fieldset>
 				<legend>Coordonnées de contact</legend>
 				<label for="street">Adresse :</label>
-				<input type="text" name="street" id="street">
+				<input type="text" name="street" id="street" onblur="isEmpty(this);" required>
 				<br>
 				<label for="postalcode">Code postal :</label>
-				<input type="text" name="postalcode" id="postalcode" onblur="autocompleteCity()">
+				<input type="text" name="postalcode" id="postalcode" onBlur="autocompleteCity();isEmpty(this);" required>
 				<label for="city">Ville :</label>
-				<input type="text" name="city" id="city">
+				<input type="text" name="city" id="city" onblur="isEmpty(this);" required>
 				<br>
 				<label for="email">E-mail :</label>
-				<input type="text" name="email" id="email" value="@">
+				<input type="text" name="email" id="email" value="@" onblur="isEmpty(this);" required>
 			</fieldset>
 			<br>
 			
 			<!-- BLOC PROFESSION -->
 			<fieldset>
 				<legend>Profession</legend>
-				<input type="radio" name="profession" id="cadre" value="cadre" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="cadre" value="cadre" onchange="extraOptions(this)" required>
 				<label for="cadre">Cadre</label>
-				<input type="radio" name="profession" id="salarie" value="salarie" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="salarie" value="salarie" onchange="extraOptions(this)">
 				<label for="salarie">Salarié</label>
 				<br>
-				<input type="radio" name="profession" id="fonctionnaire" value="fonctionnaire" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="fonctionnaire" value="fonctionnaire" onchange="extraOptions(this)">
 				<label for="fonctionnaire">Fonctionnaire</label>
-				<input type="radio" name="profession" id="patron" value="patron" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="patron" value="patron" onchange="extraOptions(this)">
 				<label for="patron">Patron</label>
 				<select name="effectif" id="bloc-patron">
-					<option value="1">1..10</option>
-					<option value="2">11..20</option>
-					<option value="3">21..30</option>
+					<option value="">Nombre de salariés</option>
+					<option value="1">1 à 10 salariés</option>
+					<option value="2">11 à 20 salariés</option>
+					<option value="3">21 à 30 salariés</option>
 				</select>
 				<br>
-				<input type="radio" name="profession" id="liberal" value="liberal" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="liberal" value="liberal" onchange="extraOptions(this)">
 				<label for="liberal">Profession libérale</label>
-				<input type="radio" name="profession" id="etudiant" value="etudiant" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="etudiant" value="etudiant" onchange="extraOptions(this)">
 				<label for="etudiant">Etudiant, lycéen</label>
 				<br>
-				<input type="radio" name="profession" id="artisan" value="artisan" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="artisan" value="artisan" onchange="extraOptions(this)">
 				<label for="artisan">Artisan</label>
-				<input type="radio" name="profession" id="autreProfession" value="autreProfession" onchange="optionsProfession()">
+				<input type="radio" name="profession" id="autreProfession" value="autreProfession" onchange="extraOptions(this)">
 				<label for="autreProfession">Autre : précisez :</label>
 				<input type="text" name="precisionProfession" value="">
 				<br>
 				<div id="bloc-fonctionnaire">
 					<label for="entiteAdmin">Entité administrative :</label>
-					<input type="text" name="entiteAdmin" id="entiteAdmin" value="">
+					<input type="text" name="entiteAdmin" id="entiteAdmin" value="" onblur="isEmpty(this);">
 				</div>
 				<div id="bloc-cadre">
 					<label for="entreprise">Entreprise :</label>
-					<input type="text" name="entreprise" id="entreprise" value="">
+					<input type="text" name="entreprise" id="entreprise" value="" onblur="isEmpty(this);">
 				</div>
 				<div id="bloc-etudiant">
 					<label for="ecole">Ecole/Université :</label>
-					<input type="text" name="ecole" id="ecole" value="">
+					<input type="text" name="ecole" id="ecole" value="" onblur="isEmpty(this);">
 				</div>
 			</fieldset>
 			<br>
@@ -117,44 +125,46 @@
 			<!-- BLOC CENTRES D'INTERETS -->
 			<fieldset>
 				<legend>Centres d'intérêt</legend>
-				<input type="checkbox" name="sport" id="sport" value="sport">
+				<input type="checkbox" name="interests" id="sport" value="sport">
 				<label for="sport">Sport</label>
-				<input type="checkbox" name="informatique" id="informatique" value="informatique" onchange="optionsInterets(this)">
+				<input type="checkbox" name="interests" id="informatique" value="informatique" onchange="extraOptions(this)">
 				<label for="informatique">Informatique</label>
 				<br>
-				<input type="checkbox" name="cinema" id="cinema" value="cinema">
+				<input type="checkbox" name="interests" id="cinema" value="cinema">
 				<label for="cinema">Cinéma</label>
-				<input type="checkbox" name="nature" id="nature" value="nature">
+				<input type="checkbox" name="interests" id="nature" value="nature">
 				<label for="nature">Nature</label>
 				<br>
-				<input type="checkbox" name="jeux" id="jeux" value="jeux">
+				<input type="checkbox" name="interests" id="jeux" value="jeux">
 				<label for="jeux">Jeux</label>
-				<input type="checkbox" name="sorties" id="sorties" value="sorties">
+				<input type="checkbox" name="interests" id="sorties" value="sorties">
 				<label for="sorties">Sorties</label>
 				<br>
-				<input type="checkbox" name="lecture" id="lecture" value="lecture">
+				<input type="checkbox" name="interests" id="lecture" value="lecture">
 				<label for="lecture">Lecture</label>
-				<input type="checkbox" name="autreInteret" id="autreInteret" value="autreInteret">
+				<input type="checkbox" name="interests" id="autreInteret" value="autreInteret">
 				<label for="autreInteret">Autre : précisez :</label>
 				<input type="text" name="precisionInteret" value="">
 				<br>
 				<div id="bloc-informatique">
-					<input type="checkbox" name="logiciels" id="logiciels" value="logiciels">
+					<input type="checkbox" name="interests" id="logiciels" value="logiciels">
 					<label for="logiciels">Logiciels</label>
-					<input type="checkbox" name="codage" id="codage" value="codage">
+					<input type="checkbox" name="interests" id="codage" value="codage">
 					<label for="codage">Codage</label>
 					<br>
-					<input type="checkbox" name="jeux" id="jeux" value="jeux" onchange="optionsInterets(this)">
-					<label for="jeux">Jeux</label>
-					<input type="checkbox" name="hardware" id="hardware" value="hardware">
+					<input type="checkbox" name="interests" id="jeuxpc" value="jeuxpc" onchange="extraOptions(this)">
+					<label for="jeuxpc">Jeux vidéos</label>
+					<input type="checkbox" name="interests" id="hardware" value="hardware">
 					<label for="hardware">Hardware</label>
 					<br>
 				</div>
 				<label for="niveau">Niveau de jeu :</label>
-				<select name="niveau" id="niveau" onchange="optionsInterets(this)">
+				<select name="niveau" id="niveau" onchange="extraOptions(this)" required>
+					<option value=""></option>
 					<option value="1">Faible</option>
 					<option value="2">Moyen</option>
 					<option value="3">Expert</option>
+					<option value="4">Asian</option>
 				</select>
 			</fieldset>
 			<br>
@@ -163,14 +173,16 @@
 			<div id="bloc-motivation">
 				<label for="motivation">Motivations :</label>
 				<br>
-				<textarea name="motivation" id="motivation"></textarea>
+				<textarea name="motivation" id="motivation" onblur="isEmpty(this);" required></textarea>
 				<br>
 			</div>
 			
 			<br>
-			<input type="reset" name="reset" value="Effacez tout !">
-			
+			<input type="reset" name="reset" value="Effacez tout !" onclick="erase()">
+            
+			<!-- A la validation, si les champs dits "required" sont vides, l'utilisateur est renvoyé au premier champ manquant. -->
+			<input type="submit" name="validation" value="Validez !">
+    
 		</form>
 	</body>
-	
 </html>
